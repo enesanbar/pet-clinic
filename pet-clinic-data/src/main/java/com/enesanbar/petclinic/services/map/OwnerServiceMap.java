@@ -2,10 +2,11 @@ package com.enesanbar.petclinic.services.map;
 
 import com.enesanbar.petclinic.models.Owner;
 import com.enesanbar.petclinic.services.CrudService;
+import com.enesanbar.petclinic.services.OwnerService;
 
 import java.util.Set;
 
-public class OwnerServiceMap extends AbstractMapService<Owner, Long> implements CrudService<Owner, Long> {
+public class OwnerServiceMap extends AbstractMapService<Owner, Long> implements OwnerService {
 
     @Override
     public Set<Owner> findAll() {
