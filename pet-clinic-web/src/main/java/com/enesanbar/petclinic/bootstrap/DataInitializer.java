@@ -1,10 +1,7 @@
 package com.enesanbar.petclinic.bootstrap;
 
 import com.enesanbar.petclinic.models.*;
-import com.enesanbar.petclinic.services.OwnerService;
-import com.enesanbar.petclinic.services.PetTypeService;
-import com.enesanbar.petclinic.services.SpecialtyService;
-import com.enesanbar.petclinic.services.VetService;
+import com.enesanbar.petclinic.services.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -17,12 +14,14 @@ public class DataInitializer implements CommandLineRunner {
     private final VetService vetService;
     private final SpecialtyService specialtyService;
     private final PetTypeService petTypeService;
+    private final VisitService visitService;
 
-    public DataInitializer(OwnerService ownerService, VetService vetService, SpecialtyService specialtyService, PetTypeService petTypeService) {
+    public DataInitializer(OwnerService ownerService, VetService vetService, SpecialtyService specialtyService, PetTypeService petTypeService, VisitService visitService) {
         this.ownerService = ownerService;
         this.vetService = vetService;
         this.specialtyService = specialtyService;
         this.petTypeService = petTypeService;
+        this.visitService = visitService;
     }
 
     @Override
@@ -65,7 +64,6 @@ public class DataInitializer implements CommandLineRunner {
         owner2.setAddress("Kasimpasa");
         owner2.setCity("Istanbul");
         owner2.setTelephone("654321");
-        ownerService.save(owner2);
 
         Pet enesCat = new Pet();
         enesCat.setPetType(savedCatType);
@@ -73,6 +71,14 @@ public class DataInitializer implements CommandLineRunner {
         enesCat.setBirthDate(LocalDate.now());
         enesCat.setName("Just Cat");
         owner2.getPets().add(enesCat);
+
+        ownerService.save(owner2);
+
+        Visit catVisit = new Visit();
+        catVisit.setPet(enesCat);
+        catVisit.setDate(LocalDate.now());
+        catVisit.setDescription("Sneezy");
+        visitService.save(catVisit);
 
         Owner owner3 = new Owner();
         owner3.setFirstName("John");
